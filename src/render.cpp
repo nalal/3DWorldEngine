@@ -14,15 +14,6 @@ int frameRate;
 
 GameState currentState;
 
-void errorCatch(string errStr)
-{
-	cout << "!FATAL ERROR!";
-	cout << errStr << "\n";
-	int holder;
-	cin >> holder;
-	SDL_Quit();
-}
-
 void drawObj()
 {
 
@@ -52,19 +43,19 @@ void initSDL()
 	
 	if(_window == NULL)
 	{
-		errorCatch("SLD_Window init failure.");
+		errLog("SLD_Window init failure.");
 	}
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(_window);
 	if(glContext == NULL)
 	{
-		errorCatch("SDL_GL_CreateContext failure.");
+		errLog("SDL_GL_CreateContext failure.");
 	}
 	
 	GLenum error = glewInit();
 	if(error != GLEW_OK)
 	{
-		errorCatch("glewInit failure.");
+		errLog("glewInit failure.");
 	}
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);

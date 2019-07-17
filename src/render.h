@@ -14,6 +14,7 @@
 
 //Local includes
 #include "sprite.h"
+#include "err.h"
 
 //Functions
 uint8_t startRender(short int w, short int h);
