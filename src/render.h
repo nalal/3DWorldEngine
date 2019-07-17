@@ -10,5 +10,9 @@
 #include <GL/glew.h>
 #include <string>
 
+//Local includes
+#include "sprite.h"
+
 //Functions
 uint8_t startRender(short int w, short int h);
+
