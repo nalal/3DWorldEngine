@@ -1,5 +1,5 @@
 main: prep main.o render.o
-	g++ stage/main.o stage/render.o -o bin/game
+	g++ stage/main.o stage/render.o -lSDL2 -lGLEW  -o bin/game
 
 prep:
 	mkdir -p stage bin
