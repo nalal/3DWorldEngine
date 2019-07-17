@@ -5,5 +5,5 @@
 #include <stdio.h>
 #include <stdint.h>
 
-//Local includes
-#include "render.h"
+//Functions
+uint8_t render();
