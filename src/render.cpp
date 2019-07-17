@@ -10,6 +10,7 @@ enum class GameState {PLAY,STOP};
 short int _screenWidth, _screenHeight;
 
 SDL_Window* _window;
+int frameRate;
 
 GameState currentState;
 
@@ -110,6 +111,16 @@ void getInput()
 	}
 }
 
+void printFrames()
+{
+	while(currentState == GameState::PLAY)
+	{
+		cout << "FPS: " << frameRate << "\n";
+		frameRate = 0;
+		sleep(1);
+	}
+}
+
 uint8_t startRender(short int w, short int h)
 {
 	setRes(w,h);
@@ -117,13 +128,15 @@ uint8_t startRender(short int w, short int h)
 	initSDL();
 	_sprite.init(-1,-1,1,1);
 	glClearDepth(1.0f);
+	std::thread (printFrames).detach();
 	while(currentState == GameState::PLAY)
 	{
+		frameRate = frameRate + 1;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		getInput();
 		//drawObj();
 		_sprite.draw();
 		SDL_GL_SwapWindow(_window);
 	}
-	return 0;
+	return unsigned(0);
 }

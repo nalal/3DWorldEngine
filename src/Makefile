@@ -1,5 +1,5 @@
 main: prep main.o render.o sprite.o
-	g++ stage/main.o stage/sprite.o stage/render.o -lSDL2 -lGLEW -lGL -o bin/game
+	g++ stage/main.o stage/sprite.o stage/render.o -lpthread -lSDL2 -lGLEW -lGL -o bin/game
 
 prep:
 	mkdir -p stage bin
