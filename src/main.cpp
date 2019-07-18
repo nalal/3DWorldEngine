@@ -11,6 +11,7 @@ int main(uint8_t argc, char *argv[])
 	
 	if(argc > 2)
 	{
+		cout << "Setting resolution to console specified.\n";
 		char *p;
 		long hl = strtol(argv[1], &p, 10);
 		long wl = strtol(argv[2], &p, 10);

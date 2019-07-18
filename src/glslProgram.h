@@ -1,6 +1,6 @@
 //C++ includes
 #include <string>
-
+#include <fstream>
 //C includes
 #include <GL/glew.h>
 
@@ -18,9 +18,10 @@ class glslProgram
 		~glslProgram();
 		
 		void compileShaders(const string& vert, const string& frag);
-		void lingShaders();
+		void linkShaders();
 	private:
 		GLuint _programID;
 		GLuint _vertID;
 		GLuint _fragID;
+		void compileShader(const string& path, GLuint id);
 };
