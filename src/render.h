@@ -1,6 +1,8 @@
+#pragma once
 //C++ includes
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 //C includes
 #include <stdio.h>
@@ -14,8 +16,10 @@
 
 //Local includes
 #include "sprite.h"
+#include "glslProgram.h"
 #include "err.h"
 
 //Functions
 uint8_t startRender(short int w, short int h);
 
+extern float fTime;

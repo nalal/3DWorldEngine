@@ -1,4 +1,9 @@
+//C++ uncludes
+#include <cstddef>
+//C includes
 #include <GL/glew.h>
+//Local includes
+#include "vert.h"
 class Sprite
 {
 	public:

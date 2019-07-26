@@ -9,8 +9,12 @@ Sprite _sprite;
 enum class GameState {PLAY,STOP};
 short int _screenWidth, _screenHeight;
 
+glslProgram colorProgram;
+
 SDL_Window* _window;
 int frameRate;
+
+float fTime = 0.0;
 
 GameState currentState;
 
@@ -25,6 +29,14 @@ void drawObj()
 		glVertex2f(1,1);
 	glEnd();
 
+}
+
+void initShader()
+{
+	colorProgram.compileShaders("/home/nalal/Repos/3DWorldEngine/src/res/basic.vert","/home/nalal/Repos/3DWorldEngine/src/res/basic.frag");
+	colorProgram.addAttribute("vertexPosition");
+	colorProgram.addAttribute("vertexColor");
+	colorProgram.linkShaders();
 }
 
 void initSDL()
@@ -59,6 +71,8 @@ void initSDL()
 	}
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	
+	initShader();
 }
 
 void setRes(short int width, short int height)
@@ -112,6 +126,15 @@ void printFrames()
 	}
 }
 
+void timerLogic()
+{
+	while(currentState == GameState::PLAY)
+	{
+		fTime += 0.01;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+	}
+}
+
 uint8_t startRender(short int w, short int h)
 {
 	setRes(w,h);
@@ -120,13 +143,19 @@ uint8_t startRender(short int w, short int h)
 	_sprite.init(-1,-1,1,1);
 	glClearDepth(1.0f);
 	std::thread (printFrames).detach();
+	std::thread (timerLogic).detach();
 	while(currentState == GameState::PLAY)
 	{
 		frameRate = frameRate + 1;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		getInput();
 		//drawObj();
+		colorProgram.use();
+		GLuint timeLocation = colorProgram.getUniformLocation("time");
+		glUniform1f(timeLocation, fTime);
 		_sprite.draw();
+		
+		colorProgram.unuse();
 		SDL_GL_SwapWindow(_window);
 	}
 	return unsigned(0);
